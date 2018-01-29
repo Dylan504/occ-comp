@@ -25,6 +25,11 @@
                 </el-date-picker>
               </el-form-item>
             </template>
+            <template v-else-if="queryCol.inputType==='test'">
+              <el-form-item :label="queryCol.label">
+                <OccDate :value.sync='form.testdate'></OccDate>
+              </el-form-item>
+            </template>
             <template v-else>
               <el-form-item :label="queryCol.label">
                 <el-input v-model="form[queryCol.modelName]"></el-input>
@@ -39,15 +44,13 @@
     <!-- 查询 -->
     <el-row align="middle">
       <el-col :span="6" :offset="10">
-      <el-button  size="medium" type="primary" @click="doQuery">查询</el-button>
-      <el-button  size="medium" type="primary" @click="doReset">重置</el-button>
+        <el-button size="medium" type="primary" @click="doQuery">查询</el-button>
+        <el-button size="medium" type="primary" @click="doReset">重置</el-button>
       </el-col>
     </el-row>
-
     <!-- 列表按钮 -->
     <el-row>
-      <el-button v-for="button in pageDef.buttons" @click="doClick(button.funcName)" 
-      style="margin-left: 10px;" type="primary" size="mini">
+      <el-button v-for="button in pageDef.buttons" @click="doClick(button.funcName)" style="margin-left: 10px;" type="primary" size="mini">
         {{button.label}}
       </el-button>
       <!-- <el-button size="mini" class="filter-item" style="margin-left: 10px;" @click="doClick" type="primary" icon="el-icon-edit">新增</el-button> -->
@@ -97,21 +100,25 @@
 </template>
 <script>
 import { formatter, getEnumObj } from "@/utils/formatter"
+import OccDate from "./OccDate"
 export default {
-  name:'OccSingleTable',
-  props:{
-    pageDef:{
-      type:Object,
-      required:true
+  name: 'OccSingleTable',
+  components:{
+    OccDate
+  },
+  props: {
+    pageDef: {
+      type: Object,
+      required: true
     },
-    dataList:Array,
-    entity:Object
+    dataList: Array,
+    entity: Object
   },
   data() {
     return {
       listLoading: false,
       //分页查询参数
-      form: {},
+      form: {testdate:'20171212000000'},
       listQuery: {
         pageJump: 1, //多页查询跳转页码
         recInPage: 2, //多页查询每页笔数
@@ -143,22 +150,22 @@ export default {
     },
 
     //子组件按钮事件
-    doClick(funcName){
+    doClick(funcName) {
       alert("click from child")
       this.$emit(funcName)
     },
 
     //带查询条件的查询
-    doQuery(){
+    doQuery() {
       console.log("query with conditions...");
       console.log(this.form)
-      this.listQuery.queryParam=this.form
+      this.listQuery.queryParam = this.form
       console.log(this.listQuery)
     },
 
     //重置
-    doReset(){
-      this.form={}
+    doReset() {
+      this.form = {}
     },
 
     doPageQuery() {
@@ -192,7 +199,7 @@ export default {
 }
 
 </script>
-<style>
+<style rel="stylesheet/scss" lang="scss" scoped>
 .el-main {
   background-color: #409EFF;
   text-align: center;
@@ -201,6 +208,14 @@ export default {
 .queryForm {
   margin-top: 20px;
   margin-right: 20px
+}
+
+.el-input {
+  width: 80%;
+}
+
+.el-select {
+  width: 80%;
 }
 
 </style>

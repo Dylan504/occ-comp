@@ -23,7 +23,8 @@
                 {label:"姓名",inputType:"input",modelName:"name"},
                 {label:"性别",inputType:"select",modelName:"sex",enumType:"sex"},
                 {label:"日期",inputType:"date",modelName:"date"},
-                {label:"日期时间",inputType:"datetime",modelName:"datetime"}
+                {label:"日期时间",inputType:"datetime",modelName:"datetime"},
+                {label:"日期时间测试",inputType:"test",modelName:"testdate"}
               ]
           },
           tabDef: {
