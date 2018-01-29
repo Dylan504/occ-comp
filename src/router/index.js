@@ -71,15 +71,40 @@ export const constantRouterMap = [
   {
     path: '/components',
     component: Layout,
+    name: 'OCC组件',
+    meta: { title: 'OCC组件', icon: 'example' },
     children: [
       {
         path: 'singleTable',
         name: '单页面查询',
         component: _import('components/TestSingleTable'),
         meta: { title: '单页面查询', icon: 'form' }
+      }, {
+        path: 'fromPage',
+        name: '新增表单',
+        component: _import('components/TestFromPage'),
+        meta: { title: '新增表单', icon: 'form' }
+      }, {
+        path: 'ueditor',
+        name: 'ueditor',
+        component: _import('ueditor/ueditor'),
+        meta: { title: '富文本编辑', icon: 'form' }
+      }
+
+    ]
+  }, {
+    path: '/select',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Select',
+        component: _import('components/SelectTest'),
+        meta: { title: 'SelectTest', icon: 'form' }
       }
     ]
   },
+
 
   { path: '*', redirect: '/404', hidden: true }
 ]
